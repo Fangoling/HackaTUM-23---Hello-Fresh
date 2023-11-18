@@ -1,5 +1,5 @@
 import { getDB } from "../../../db";
-import { mapUser } from "../../../lib"
+import { mapUser } from "../../../sessionManagement.js"
 
 export async function POST (req) {
 
