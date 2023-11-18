@@ -6,10 +6,7 @@ import { useEffect, useState } from "react";
 import Image from 'next/image';
 
 import RecipeDisplay from "../components/recipe/RecipeDisplay"
-import RecipeList from "../components/recipe/RecipeList"
-import TagSelector from "../components/tagselector/TagSelector"
 import BarComponent from "../components/bar/BarComponent"
-import TagRecipeList from "../components/recipe/TagRecipeList"
 import Placeholder from "../components/basic/Placeholder"
 import Loading from '../components/basic/Loading';
 
@@ -19,29 +16,22 @@ export default function Home() {
   const recipeApiURL = "/api/recipes";
   const filterApiURL = "/api/filter";
 
+  const SKIP = 0;
+  const TAKE = 20;
+
   const [dietFilter, setDietFilter] = useState("All");
-  const [activeTags, setActiveTags] = useState(["Popular"]);
+  const [activeTags, setActiveTags] = useState([]);
 
   const [recipes, setRecipes] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
-
-  // function toggleTag(tag) {
-  //   setActiveTags(prev => {
-  //       if (prev.includes(tag)) {
-  //           return prev.filter(t => t !== tag);
-  //       } else {
-  //           return [tag, ...prev];
-  //       }
-  //   });
-  // }
-
   function toggleFilter(f) {
     setLoading(true);
-    axios.post(filterApiURL, { filter: f }).then((r) => {
-      if (r.data.session){
-        setActiveTags(r.data.session.filters);
+    axios.post(filterApiURL, { filter: f, skip: SKIP, take: TAKE }).then((r) => {
+      if (r.data.recipes){
+        setActiveTags(r.data.filters);
+        setRecipes(r.data.recipes);
       } else {
         console.error(r.data);
       }
@@ -53,12 +43,14 @@ export default function Home() {
   }
 
   function getResults() {
+    console.log("get results")
     setLoading(true);
     axios.get(recipeApiURL + "?skip=" + recipes.length + "&take=" + "20").then((res) => {
 
       if (!res.data.recipes) {
         console.error("error " + res.data);
       } else {
+        console.log(res.data.recipes);
         setRecipes(res.data.recipes);
       }
 
@@ -72,7 +64,7 @@ export default function Home() {
 
   useEffect(() => {
     getResults();
-  },[])
+  }, [])
 
   return (
     <main className="h-screen bg-white n w-screen ">
@@ -85,8 +77,8 @@ export default function Home() {
           <Loading loading={loading}/>
         }
 
-        {recipes.map((recipe, index) => (
-          <RecipeDisplay key={index} recipe={recipe}/>
+        { recipes.map((recipe, index) => (
+          <RecipeDisplay key={index} recipe={recipe.recipe}/>
         ))}
 
         { recipes.length < 3 &&

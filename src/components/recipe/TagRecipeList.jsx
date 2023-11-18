@@ -3,9 +3,6 @@ import Tag from "../basic/Tag"
 
 const TagRecipeList = ({ toggleTag, pre, tag }) => {
 
-  // TODO
-  //
-
 
   const fetchTagList = () => {
     axios.get("/").then((r) => {

@@ -1,15 +1,19 @@
 "use client";
 
 import Image from "next/image";
-const { useState } = require("react");
+const { useState, useEffect } = require("react");
 import TagScroller from "../../components/tagscroller/TagScroller";
 import TagRecipeList from "../../components/recipe/TagRecipeList";
 import Link from "next/link";
 import axios from "axios";
+import RecipeDisplay from "../../components/recipe/RecipeDisplay";
 
 const RecipePage = ({ params }) => {
 
   const recipeAndResultsApiUrl = "/api/recipe";
+
+  const [recipe, setRecipe] = useState({});
+  const [suggestions, setSuggestions] = useState([]);
 
   const TAKE = 20;
   const SKIP = 0;
@@ -17,13 +21,23 @@ const RecipePage = ({ params }) => {
   const { recipeID } = params;
 
   const fetchRecipe = () => {
-    axios.get(recipeAndResultsApiUrl + "?recipe_id=" + recipeID + "&take=" + TAKE + "&skip=" + SKIP )
+    axios.get(recipeAndResultsApiUrl + "?recipeId=" + recipeID + "&take=" + TAKE + "&skip=" + SKIP ).then((res) => {
+      if (res.data.recipe) {
+        console.log(res.data.suggestions);
+        setRecipe(res.data.recipe);
+        setSuggestions(res.data.suggestions);
+      } else {
+        console.log(res.data);
+      }
+    }).catch((err) => {
+        console.error(err);
+      })
   }
 
-
-  const [recipe, setRecipe] = useState({});
-
   function convertDuration(duration) {
+    if (!duration) {
+      return;
+    }
     const match = duration.match(/PT(\d+)M/);
 
     if (match) {
@@ -38,6 +52,9 @@ const RecipePage = ({ params }) => {
     window.location = "/";
   }
 
+  useEffect(() => {
+    fetchRecipe();
+  }, [])
 
   return (
     <div> 
@@ -54,7 +71,7 @@ const RecipePage = ({ params }) => {
           <Image src={ recipe.image } width={380} height={250}/>
         </div>
         <div className="mt-2">
-          <TagScroller activeTags={[]} toggleTag={() => {}} range={recipe.tags}/>
+          <TagScroller activeTags={[]} toggleTag={() => {}} range={recipe.tags ? recipe.tags : ["loading.."]}/>
         </div>
         <p className="my-3">{ recipe.headline }</p>
         <div className="flex flex-col items-center justify-center full-width mb-2">
@@ -72,8 +89,9 @@ const RecipePage = ({ params }) => {
       </div>
 
       <div className="p-4">
-        <TagRecipeList tag={recipe.tags[0]}/>
-        <TagRecipeList tag={recipe.tags[1]}/>
+        { suggestions.map( (suggestion, index) => (
+          <RecipeDisplay key={index} recipe={suggestion.recipe}/>
+        ))}
       </div>
 
     </div>

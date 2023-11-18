@@ -10,8 +10,8 @@ const RecipeList = ({ tag, className }) => {
 
   return (
     <div className={"w-full flex gap-2 overflow-scroll " + className}>
-      {recipelist.map( ele => (
-        <div className="w-[200px]">
+      {recipelist.map( (ele, index) => (
+        <div key={index} className="w-[200px]">
           <RecipeDisplay key={ele.id} recipe={ele}/>
         </div>
       ))}

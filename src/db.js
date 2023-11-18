@@ -57,7 +57,7 @@ const recipes = [{
         'https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R39_W49_DE_R4823-1_Main__5low-208db069.jpg',
       websiteURL:
         'https://www.hellofresh.de/recipes/perlencouscous-salat-mit-beete-and-pastinakenchips-64e8611440ec4203972faf1b',
-      tags: ['Family Friendly'],
+      tags: ['Family Friendly', 'All'],
       energy: 3663,
       calories: 875,
       carbohydrate: 83.4,
@@ -74,7 +74,55 @@ const recipes = [{
         'https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R39_W49_DE_R4823-1_Main__5low-208db069.jpg',
       websiteURL:
         'https://www.hellofresh.de/recipes/perlencouscous-mit-rote-beete-and-pastinakenchips-64e8611440ec4203972faf1b',
-      tags: ['High Protein'],
+      tags: ['High Protein', 'All'],
+      energy: 3663,
+      calories: 875,
+      carbohydrate: 83.4,
+      protein: 18,
+    },
+    {
+      id: '64e8611440ec42038727af1b',
+      name: 'Lennarts Backfisch aus der Badewanne',
+      headline:
+        'This dish produces 50% less CO2e from ingredients than an average HelloFresh recipe',
+      prepTime: 'PT35M',
+      image:
+        'https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R39_W49_DE_R4823-1_Main__5low-208db069.jpg',
+      websiteURL:
+        'https://www.hellofresh.de/recipes/perlencouscous-salat-mit-rote-beete-and-pastinakenchips-64e8611440ec4203972faf1b',
+      tags: ['High Protein', 'Fish', 'Family Friendly'],
+      energy: 3663,
+      calories: 875,
+      carbohydrate: 83.4,
+      protein: 18,
+    },
+    {
+      id: '64e8611440ec42038727af1b',
+      name: 'Fangs Milchreis aus Asien',
+      headline:
+        'This dish produces 50% less CO2e from ingredients than an average HelloFresh recipe',
+      prepTime: 'PT35M',
+      image:
+        'https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R39_W49_DE_R4823-1_Main__5low-208db069.jpg',
+      websiteURL:
+        'https://www.hellofresh.de/recipes/perlencouscous-salat-mit-rote-beete-and-pastinakenchips-64e8611440ec4203972faf1b',
+      tags: ['Vegetarian', 'Family Friendly'],
+      energy: 3663,
+      calories: 875,
+      carbohydrate: 83.4,
+      protein: 18,
+    },
+    {
+      id: '64e8611440ec420532452345234',
+      name: 'Nils Studitopf',
+      headline:
+        'This dish produces 150% more CO2e from ingredients than an average HelloFresh recipe',
+      prepTime: 'PT1M',
+      image:
+        'https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R39_W49_DE_R4823-1_Main__5low-208db069.jpg',
+      websiteURL:
+        'https://www.hellofresh.de/recipes/perlencouscous-salat-mit-beete-and-pastinakenchips-64e8611440ec4203972faf1b',
+      tags: ['Family Friendly', 'All'],
       energy: 3663,
       calories: 875,
       carbohydrate: 83.4,
@@ -85,6 +133,11 @@ const recipes = [{
 
 export function getDB() {
   return recipes;
+}
+
+
+export function query(id) {
+  return recipes.find( recipe => recipe.id === id);
 }
 
 
