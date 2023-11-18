@@ -89,7 +89,7 @@ export default function Home() {
         </div>
       </div>
       <div className='fixed bottom-0 w-full z-50 backdrop-blur'>
-        <BarComponent activeTags={activeTags} toggleTag={toggleFilter} dietFilter={dietFilter} setDietFilter={setDietFilter}/>
+        <BarComponent activeTags={activeTags} toggleTag={toggleFilter} dietFilter={dietFilter} setDietFilter={setDietFilter} setActiveTags={setActiveTags} setRecipes={setRecipes}/>
       </div>
     </main>
   )

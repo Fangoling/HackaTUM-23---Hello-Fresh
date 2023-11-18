@@ -1,7 +1,7 @@
 import TagScroller from "../tagscroller/TagScroller";
 import TagSelector from "../tagselector/TagSelector"
 
-const BarComponent = ({ activeTags, toggleTag, dietFilter, setDietFilter }) => {
+const BarComponent = ({ activeTags, toggleTag, dietFilter, setDietFilter, setActiveTags, setRecipes }) => {
 
 
   let all = ["Low Carb", "High Protein", "Under 650 calories", "Family friendly", "Kids fave"];
@@ -17,7 +17,7 @@ const BarComponent = ({ activeTags, toggleTag, dietFilter, setDietFilter }) => {
       </div>
 
       <div className="p-2">
-        <TagSelector dietFilter={dietFilter} setDietFilter={setDietFilter} />
+        <TagSelector dietFilter={dietFilter} setDietFilter={setDietFilter} setActiveTags={setActiveTags} setRecipes={setRecipes} activeTags={activeTags}/>
       </div>
       <div className="bg-white opacity-80 absolute inset-0 -z-10">
       </div>
