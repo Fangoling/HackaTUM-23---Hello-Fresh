@@ -1,0 +1,34 @@
+/*
+selects the <take> best options, skips the first <skip> best options, based on the three highest criteria
+*/
+
+export function getBest(skip, take, session, db){
+    const filtered = filter(session, db); 
+    //this is where the matching starts
+
+}
+function matchOnNPreferences(N, session, db){
+    const matched = []; 
+}
+
+function sortPreferences(session){
+}
+
+
+
+function filter(session, db){
+    const filtered = []; 
+
+    db.foreach((recipe) => {
+        const conflict = false;  
+        session.filters.foreach((filter) => {
+            if(!recipe[tags].includes(filter)){
+                conflict = true; 
+            }
+        }); 
+        if(!conflict){
+            filtered.push(recipe); 
+        }
+    }); 
+    return filtered; 
+}
