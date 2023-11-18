@@ -1,32 +1,20 @@
 import { NextResponse } from "next/server.js";
+import { insertMeals, findMealByTagsConjunction, findMealByTagsDisjunction } from "../../../../prisma/meals.js";
 
-export function GET (req) {
-
-  const tagsParam = req.nextUrl.searchParams.get('tags');
-
-  if (!tagsParam) {
-    return new NextResponse("tags parameter required", { status: 400 });
-  }
-
-  const tags = tagsParam.split(",");
-
-  if (tags.length === 0) {
-    return new NextResponse("Bad Request: 'tags' parameter cannot be empty", { status: 400 });
-  }
-
-  if (!tags || tags == [] ) {
-    return new NextResponse(null, { status: 400 });
-  }
-
-
-
-  // tags = ["vegan", "fish"]
-
+export async function GET (req) {
+  await insertMeals();
   // TODO: db query
+  const keys = [];
+  const values = [];
+  req.nextUrl.searchParams.forEach((value, key) => {
+    keys.push(key);
+    values.push(value);
+  });
 
+  console.log(keys);
+  console.log(values);
+  const foundMeals = await findMealByTagsConjunction(keys);
+  console.log(foundMeals)
 
-
-  return NextResponse.json({ tags });
+  return NextResponse.json({ foundMeals });
 }
-
-
