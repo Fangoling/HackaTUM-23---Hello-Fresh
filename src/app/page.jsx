@@ -50,7 +50,12 @@ export default function Home() {
         { activeTags.map( at => (
           <TagRecipeList toggleTag={toggleTag} tag={at}/>
         ))}
-        <Placeholder/>
+        { activeTags.length < 3 &&
+          <Placeholder/>
+        }
+          <div className='mt-[30vh]'>
+            Ende
+          </div>
       </div>
       <div className='fixed bottom-0 w-full z-50 backdrop-blur'>
         <BarComponent activeTags={activeTags} toggleTag={toggleTag} dietFilter={dietFilter} setDietFilter={setDietFilter}/>

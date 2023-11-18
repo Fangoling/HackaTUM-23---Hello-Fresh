@@ -11,8 +11,8 @@ const BarComponent = ({ activeTags, toggleTag, dietFilter, setDietFilter }) => {
     <div className="w-full z-20 relative">
       <div className="py-2">
         <div className="mb-1 overflow-x-auto">
-          <TagScroller activeTags={activeTags} toggleTag={toggleTag} range={all} className="mb-2"/>
-          <TagScroller activeTags={activeTags} toggleTag={toggleTag} range={nationalities}/>
+          <TagScroller activeTags={activeTags} toggleTag={toggleTag} range={all} className="mb-2 ml-4"/>
+          <TagScroller activeTags={activeTags} toggleTag={toggleTag} range={nationalities} className="ml-4"/>
         </div>
       </div>
 
