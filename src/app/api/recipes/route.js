@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server.js";
-import { insertMeals, findMealByTags } from "../../../../prisma/meals.js";
+import { insertMeals, findMealByTagsConjunction, findMealByTagsDisjunction } from "../../../../prisma/meals.js";
 
-export function GET (req) {
-
+export async function GET (req) {
+  await insertMeals();
   // TODO: db query
   const keys = [];
   const values = [];
@@ -13,7 +13,7 @@ export function GET (req) {
 
   console.log(keys);
   console.log(values);
-  const foundMeals = findMealByTags(values);
+  const foundMeals = await findMealByTagsConjunction(keys);
   console.log(foundMeals)
 
   return NextResponse.json({ foundMeals });

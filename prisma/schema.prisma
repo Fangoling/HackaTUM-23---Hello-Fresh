@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Recipe {
-  id           String    @id
+  id           String    @id @default(uuid())
   name         String
   headline     String
   prepTime     String
@@ -26,7 +26,7 @@ model Recipe {
 }
 
 model Tag {
-  name         String    @id
+  name         String    @id @default(uuid())
   recipes      Recipe[]  @relation("RecipeTag")
   recipesTag   RecipeTag[]  
 }
