@@ -5,30 +5,23 @@ const { useState } = require("react");
 import TagScroller from "../../components/tagscroller/TagScroller";
 import TagRecipeList from "../../components/recipe/TagRecipeList";
 import Link from "next/link";
+import axios from "axios";
 
 const RecipePage = ({ params }) => {
 
+  const recipeAndResultsApiUrl = "/api/recipe";
+
+  const TAKE = 20;
+  const SKIP = 0;
+
   const { recipeID } = params;
 
-  const [recipe, setRecipe] = useState({
-      id: '64fed0d332e9107c6db8b507',
-      name: 'Harissa chicken on quinoa with green olives',
-      headline:
-        'This dish produces 50% less CO2e from ingredients than an average HelloFresh recipe',
-      prepTime: 'PT25M',
-      image:
-        'https://img.hellofresh.com/q_auto/recipes/image/HF_Y23_R37_W44_DE_R4819-1_Main_low-661e95c9.jpg',
-      websiteURL:
-        'https://www.hellofresh.de/recipes/harissa-hahnchen-auf-quinoa-mit-grunen-oliven-64fed0d332e9107c6db8b507',
-      tags: [
-        'High Protein',
-        'Under 650 Calories',
-      ],
-      energy: 2534,
-      calories: 606,
-      carbohydrate: 52.4,
-      protein: 38.4,
-  },);
+  const fetchRecipe = () => {
+    axios.get(recipeAndResultsApiUrl + "?recipe_id=" + recipeID + "&take=" + TAKE + "&skip=" + SKIP )
+  }
+
+
+  const [recipe, setRecipe] = useState({});
 
   function convertDuration(duration) {
     const match = duration.match(/PT(\d+)M/);
@@ -39,7 +32,7 @@ const RecipePage = ({ params }) => {
     } else {
         return "Invalid format";
     }
-}
+  }
 
   function goHome() {
     window.location = "/";
